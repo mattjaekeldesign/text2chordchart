@@ -1,73 +1,155 @@
-# Welcome to your Lovable project
+# 🎸 text2chordchart
 
-## Project info
+Type chord progressions as plain text and get a clean chord chart. Export it to iReal Pro, PDF, MusicXML or HTML.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🌐 **Live:** https://chord-creator-studio.vercel.app
+📖 **Full docs:** https://chord-creator-studio.vercel.app/docs
 
-## How can I edit this code?
+🔒 No accounts. No cloud. Your charts are saved in your browser.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 How to Use
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+1. 🆕 Click **Create Chart** on the home page
+2. 📝 Fill in the song title, composer, style, key and tempo (BPM)
+3. ⌨️ Type your chords using the rules below
+4. 👀 Watch the preview update as you type
+5. 📤 Click **Export** to download `.pdf`, `.xml` (MusicXML), `.html` or `.ireal`, or copy the iReal Pro URL
 
-Changes made via Lovable will be committed automatically to this repo.
+🎼 MusicXML files open in MuseScore, Finale, Dorico, Sibelius and other notation apps.
 
-**Use your preferred IDE**
+### 🛠️ Editor tools
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- 🔍 **find/replace**: change chords in bulk (e.g. every `D-7` to `E-7`). It matches whole chords only, so replacing `D` won't break `Dmaj7`.
+- 🔠 **− / +**: change editor font size (10–20px). Your choice is remembered.
+- ⏱️ **bpm**: set the tempo. It's included in iReal Pro and MusicXML exports.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 📏 Rules
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 1️⃣ Bars & chords
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Separate bars with `|`. Separate chords in the same bar with spaces.
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+|| Cmaj7 | Dm7 G7 | Em7 | A7 ||
 ```
 
-**Edit a file directly in GitHub**
+### 2️⃣ Bar lines & repeats
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Syntax | Meaning |
+|---|---|
+| `\|` | ➖ Single bar line |
+| `\|\|` | 🟰 Double bar line (section boundary) |
+| `/` | 🔂 Repeat previous chord |
+| `%` | 🔁 Repeat previous bar |
+| `\|\|:` | ▶️ Repeat start |
+| `:\|\|` | ◀️ Repeat end |
+| `:\|\|x4` | ✖️ Repeat 4 times (any number) |
 
-**Use GitHub Codespaces**
+```
+||: Cmaj7 | Dm7 | Em7 | G7 :||x2
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 3️⃣ Sections
 
-## What technologies are used for this project?
+🏷️ Put the section name on its own line, then the chords. Allowed names:
+- `A`–`H`
+- `Intro`, `Verse`, `Chorus`, `Bridge`, `Outro`, `Solo`, `Interlude`, `Tag`
 
-This project is built with:
+```
+A
+|| Cmaj7 | Dm7 | Em7 | G7 ||
+B
+|| Fmaj7 | Bb7 | Cmaj7 | / ||
+(A)
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- ↩️ `(A)` repeats a section you already wrote
+- ➡️ Inline also works: `A || Cmaj7 | Dm7 || B || Em7 | G7 ||`
 
-## How can I deploy this project?
+### 4️⃣ Navigation (D.C., D.S., Coda, Fine)
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+🧭 Put the marker in parentheses before the chord it sits under:
 
-## Can I connect a custom domain to my Lovable project?
+| Syntax | Result |
+|---|---|
+| `(d.c) G` | D.C. |
+| `(d.s) C` | D.S. |
+| `(d.c. al coda) F7` | D.C. al Coda |
+| `(d.s. al fine) Am` | D.S. al Fine |
+| `(fine) C` | Fine |
+| `(to coda) G7` or `(coda) G7` | To Coda |
 
-Yes, you can!
+- 𝄋 `A seg` (or `A segno`) adds a segno to section A
+- 𝄌 A section named `Coda` gets the coda symbol automatically
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### 5️⃣ Time signatures & endings
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+⏲️ Time signature at the start of a bar:
+
+```
+|| (3/4) Cmaj7 | Dm7 | Em7 ||
+```
+
+1️⃣2️⃣ First and second endings:
+
+```
+||: Cmaj7 | Dm7 | (1) Em7 | G7 :||
+| (2) Fmaj7 | G7 ||
+```
+
+### 6️⃣ Chord notation
+
+✨ Type chords normally. They're converted to the standard symbols for you.
+
+| You type | Shows as | Chord |
+|---|---|---|
+| `Cmaj7` | CΔ7 | Major 7th |
+| `Cmin7` / `C-7` | C-7 | Minor 7th |
+| `Cø7` | Cø7 | Half-diminished |
+| `Cdim` / `C°` | C° | Diminished |
+| `Caug` / `C+` | C+ | Augmented |
+| `C7` | C7 | Dominant 7th |
+| `Csus4` | Csus4 | Suspended 4th |
+| `C/E` | C/E | Slash chord |
+| `N.C.` | N.C. | No chord |
+
+⌨️ Special characters: `º` = Option+0 (Mac) / Alt+0186 (Win), `ø` = Option+O / Alt+0248. Or type `dim`, `min` or `maj` and they're converted for you.
+
+### 7️⃣ Comments
+
+💬 Anything after `//` is left out of the preview and every export:
+
+```
+|| Cmaj7 | Dm7 G7 || // turnaround
+// TODO: add outro
+```
+
+---
+
+## 🎶 Example
+
+```
+A seg
+||: Dm7 | G7 | Cmaj7 | (coda) A7 :||
+B
+|| Fmaj7 | Bb7 | Em7 | (d.c) A7 ||
+Coda
+|| Cmaj7 | / ||
+```
+
+---
+
+## 💻 Run Locally
+
+```sh
+npm install
+npm run dev     # 🔧 dev server
+npm run build   # 📦 production build
+npm test        # ✅ tests
+```
+
+🧰 Built with Vite, React, TypeScript, Tailwind and shadcn/ui. Deployed on Vercel. Every push to `main` redeploys the live site.
