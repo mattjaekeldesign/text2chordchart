@@ -2,8 +2,8 @@
 
 Type chord progressions as plain text and get a clean chord chart. Export it to iReal Pro, PDF, MusicXML or HTML.
 
-🌐 **Live:** https://chord-creator-studio.vercel.app
-📖 **Full docs:** https://chord-creator-studio.vercel.app/docs
+🌐 **Live:** https://text2chordchart.vercel.app
+📖 **Full docs:** https://text2chordchart.vercel.app/docs
 
 🔒 No accounts. No cloud. Your charts are saved in your browser.
 
